@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/main.css">
-    <title>Parser</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="js/js.js"></script>
+    <title>Parser-генератор форм</title>
 </head>
 <body>
     <div class="container">
@@ -13,16 +15,25 @@
                 <main>
                 
                     <!--Кнопки-->
-                    <div class="btn">
-                        <form enctype="multipart/form-data" method="post">
-                            <input type="file" id="jsonFile" name="jsonFile" accept=".json">
-                        </form>
-                        <button id='clear'>Сброс</button>
-                    </div>
+                    <section class="btn">
+                        <div class="container_btn">
+                            <form enctype="multipart/form-data" method="post">
+                                <div class="input__wrapper">
+                                    <input name="file" type="file" name="file" id="input__file" class="input input__file" multiple accept=".json" value="1"> 
+                                    <label for="input__file" class="input__file-button">
+                                        <span class="input__file-icon-wrapper"><img class="input__file-icon" src="./img/cloud.png" alt="Выбрать файл" width="25"></span>
+                                        <span class="input__file-button-text">Выберите JSON файл</span>
+                                    </label>
+                                </div>
+                                <button class="form__btn" type="button" id="btnLoad" value="Load">Загрузить</button>
+                                <button id='clear'>Сброс</button>
+                            </form>
+                        </div>
+                    </section>
                     <!--Окно генерации формы-->
-                    <div class="result-generator">
+                    <section class="result-generator">
                         <div id=newForm></div>
-                    </div>
+                    </section>
                 
             </main>
     </div>
