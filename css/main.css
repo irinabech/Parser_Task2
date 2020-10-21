@@ -69,7 +69,10 @@ h2 {
 .input__file-button-text {
     line-height: 1;
     margin-top: 1px;
-}  
+}
+.input__file-button:hover, button:hover {
+    background: #5e8dc5 ;
+}
 .input__file-button{
     width: 100%;
     max-width: 200px;
@@ -109,6 +112,9 @@ button{
     cursor: pointer;
     margin: 0 auto;
 }
+#clear {
+    display: none;
+}
 form {
     display: flex;
     flex-direction: column;
@@ -145,6 +151,7 @@ form {
     width: 90%;
     height: 4px;
     transition: .4s;
+    z-index: 999999;
 }
 .mobile-menu__icon::after, .mobile-menu__icon::before {
     content: "";
@@ -154,6 +161,7 @@ form {
     width: 100%;
     height: 4px;
     transition: .4s;
+    z-index: 999999;
 }
 .mobile-menu__icon::after {
     top: 8px;
@@ -216,4 +224,13 @@ form {
 .mobile-menu__checkbox:checked ~ .mobile-menu__btn .mobile-menu__icon::before {
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg)
+}
+/*Поле генератора форм*/
+.clear-active {
+    display: block !important;
+}
+.form-result {
+    width: 60%;
+    height: auto;
+    background: #6699CC;
 }
