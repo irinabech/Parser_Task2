@@ -41,7 +41,7 @@ window.onload = function(){
             resultForm = JSON.parse(e.target.result);
             //console.log(resultForm)
             //console.log(resultForm['name'])
-            console.log(resultForm['fields'])
+            //console.log(resultForm['fields'])
             //console.log(resultForm['references'])
             //console.log(resultForm['buttons'])
             newForm.classList.add('form-result');
@@ -51,8 +51,24 @@ window.onload = function(){
 
             //input, button, checkbox
             newForm.innerHTML+='<br>' + resultForm['name'];
+
             for (let value of resultForm['fields']) {
-                newForm.innerHTML+='<br>' + value["label"] + '<input' + ' type=' + value["input"]["type"] + (value['input']['required'] ? ' required' : '') +'>'
+                if (value['input']['type'] == 'technology') {
+                    //let multiple = document.createElement('select')
+                    //newForm.innerHTML+='<br>' + value["label"] + '<input' + ' type=' + value["input"]["type"] + (value['input']['required'] ? ' required' : '') 
+                    //+ ' placeholder=' + (value['input']['placeholder']? '"' + value['input']['placeholder'] + '"' : '')+'>' +
+                    let data = '';
+                    let length = value['input']['technologies'].length;
+                    for (let i=0; i < length; i++) {
+                        data += ' <option >' + value['input']['technologies'][i] + '</option> ';
+                    }
+                    newForm.innerHTML += '<br>' + value['label'] + '<select' + (value['input']['multiple']? ' multiple' : '') + 
+                    (value['input']['required'] ? ' required' : '') + '>' + data + '<\select>';;
+                }
+                else {
+                    newForm.innerHTML+='<br>' + value["label"] + '<input' + ' type=' + value["input"]["type"] + (value['input']['required'] ? ' required' : '') 
+                        + ' placeholder=' + (value['input']['placeholder']? '"' + value['input']['placeholder'] + '"' : '')+'>'
+                }
             }
             for (let value of resultForm['references']) {
                 if(value['input']) {
