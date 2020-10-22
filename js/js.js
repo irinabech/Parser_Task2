@@ -29,20 +29,42 @@ window.onload = function(){
     };
     
 
+    
      // чтение json //
     function loadJson() {
-    let loadFile =fileJson.files[0];
-    let json = new FileReader();
-    json.onload = dataJson;
-    json.readAsText(loadFile);
+        let loadFile = fileJson.files[0];
+        let resultForm = {}
+        let json = new FileReader();
+        json.onload = dataJson;
+        json.readAsText(loadFile);
+        function dataJson(e) {
+            resultForm = JSON.parse(e.target.result);
+            //console.log(resultForm)
+            //console.log(resultForm['name'])
+            console.log(resultForm['fields'])
+            //console.log(resultForm['references'])
+            //console.log(resultForm['buttons'])
+            newForm.classList.add('form-result');
+            clear.classList.add('clear-active');
+            
+            //генерация форм
 
-    function dataJson(e) {
-        let resultForm = e.target.result;
-        console.log(resultForm)
+            //input, button, checkbox
+            newForm.innerHTML+='<br>' + resultForm['name'];
+            for (let value of resultForm['fields']) {
+                newForm.innerHTML+='<br>' + value["label"] + '<input' + ' type=' + value["input"]["type"] + (value['input']['required'] ? ' required' : '') +'>'
+            }
+            for (let value of resultForm['references']) {
+                if(value['input']) {
+                newForm.innerHTML+='<br><input type=' + value["input"]["type"] + (value['input']['checked'] ? ' checked' : '') +'>'
+                }
+            }
+            for (let value of resultForm['buttons']) {
+                newForm.innerHTML+='<br><button>' + value['text'] + '</button>'
+            }
+            }
         }
-    }
-
-    
+        //
   // удаление формы //
 
     function clearForm() {
