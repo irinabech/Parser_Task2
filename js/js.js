@@ -1,6 +1,7 @@
 window.onload = function(){
     //let form = document.querySelector ('#result-generator');
     let fileJson = document.querySelector("#input__file");
+    let clear = document.querySelector ('.btn-clear');
 
     //Проверка кол-ва загруженных файлов
     let inputs = document.querySelectorAll('.input__file');
@@ -18,26 +19,41 @@ window.onload = function(){
         });
     });
     // загрузка json файла //
-    let clear = document.querySelector ('.btn-clear');
+    
     let btnLoad = document.querySelector('.form__btn');
     let newForm = document.querySelector('.newForm');
     btnLoad.onclick = function(event) {
         newForm.classList.add('form-result');
         clear.classList.add('clear-active')
         loadJson();
-    }; 
+    };
+    
 
      // чтение json //
     function loadJson() {
     let loadFile =fileJson.files[0];
-    let resultForm = new FileReader();
-    resultForm.onload = dataJson;
-    resultForm.readAsText(loadFile);
+    let json = new FileReader();
+    json.onload = dataJson;
+    json.readAsText(loadFile);
 
     function dataJson(e) {
-        let newForm = e.target.result;
-        console.log(newForm)
+        let resultForm = e.target.result;
+        console.log(resultForm)
+        }
     }
+
+    
+  // удаление формы //
+
+    function clearForm() {
+        clear.addEventListener('click', () => {
+        if (newForm) {
+            newForm.innerHTML = '';
+            newForm.classList.remove('form-result');
+            clear.classList.remove('clear-active')
+        }
+        });
     }
+clearForm();
 
 }//onload

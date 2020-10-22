@@ -1,7 +1,7 @@
 body {
     margin: 0 auto;
     padding: 0;
-    background: #6699CC;
+    background: #ffffff;
     font-family: 'Open Sans', sans-serif;
 }
 .container {
@@ -9,9 +9,10 @@ body {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    
+    height: 100vh;
 }
 header {
+    height: 55px;
     background-color: #222222;
     color: #e6e1e1e0;
 }
@@ -23,7 +24,6 @@ p {
 }
 
 main {
-    height: 100vh;
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -67,11 +67,8 @@ h2 {
     border-right: 1px solid #fff;
 } 
 .input__file-button-text {
-    line-height: 1;
+    line-height: 1.2;
     margin-top: 1px;
-}
-.input__file-button:hover, button:hover {
-    background: #5e8dc5 ;
 }
 .input__file-button{
     width: 100%;
@@ -81,6 +78,7 @@ h2 {
     color: #fff;
     font-size: 1.125rem;
     font-weight: 500;
+    padding: 2px 2px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -112,9 +110,13 @@ button{
     cursor: pointer;
     margin: 0 auto;
 }
+.btn-clear {
+    background: #96a5b8;
+}
+/*
 #clear {
     display: none;
-}
+}*/
 form {
     display: flex;
     flex-direction: column;
@@ -175,15 +177,14 @@ form {
     display: flex;
     align-items: center;
     justify-content: center;
-    top: 50px;
+    top: 46px;
     /* right: 0; */
     left: 0px;
     z-index: 999;
-    height: 0;
     opacity: 1;
     transition: .5s;
     overflow: hidden;
-    background-color: #262626;
+    background-color: #222222;
 }
 .mobile-menu__list {
     position: absolute;
@@ -228,9 +229,11 @@ form {
 /*Поле генератора форм*/
 .clear-active {
     display: block !important;
+    background: #5e8dc5;
 }
 .form-result {
     width: 60%;
-    height: auto;
+    min-height: 200px;
     background: #6699CC;
+    margin: 100px auto;
 }
