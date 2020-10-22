@@ -26,10 +26,7 @@ window.onload = function(){
         newForm.classList.add('form-result');
         clear.classList.add('clear-active')
         loadJson();
-    };
-    
-
-    
+    }; 
      // чтение json //
     function loadJson() {
         let loadFile = fileJson.files[0];
@@ -50,37 +47,58 @@ window.onload = function(){
             //генерация форм
 
             //input, button, checkbox
-            newForm.innerHTML+='<br>' + resultForm['name'];
+            newForm.innerHTML+='<br>' + '<h1>' + resultForm['name'] + '</h1>';
 
             for (let value of resultForm['fields']) {
                 if (value['input']['type'] == 'technology') {
-                    //let multiple = document.createElement('select')
-                    //newForm.innerHTML+='<br>' + value["label"] + '<input' + ' type=' + value["input"]["type"] + (value['input']['required'] ? ' required' : '') 
-                    //+ ' placeholder=' + (value['input']['placeholder']? '"' + value['input']['placeholder'] + '"' : '')+'>' +
                     let data = '';
-                    let length = value['input']['technologies'].length;
-                    for (let i=0; i < length; i++) {
+                    for (let i=0; i < value['input']['technologies'].length; i++) {
                         data += ' <option >' + value['input']['technologies'][i] + '</option> ';
                     }
-                    newForm.innerHTML += '<br>' + value['label'] + '<select' + (value['input']['multiple']? ' multiple' : '') + 
+                    newForm.innerHTML += '<br>' + '<label>' + value["label"] + '</label>' + '<select' + (value['input']['multiple']? ' multiple' : '') + 
                     (value['input']['required'] ? ' required' : '') + '>' + data + '<\select>';;
                 }
+                else if (value['input']['type'] == 'file') {
+                    let accept = '';
+                    if (value['input']['filetype']) {
+                        accept += ' accept = ".' + value['input']['filetype'].join(', .') + '"';
+                    }
+                    newForm.innerHTML += '<br>' + '<label>' + value["label"] + '</label>' + '<input' + ' type=' + value["input"]["type"] + accept  +
+                    (value['input']['required'] ? ' required' : '') + (value['input']['multiple']? ' multiple' : '') + '>';
+
+                }
+                else if (value['input']['type'] == 'color') {
+                    let list = ''
+                    if (value['input']['colors']) {
+                        list += '<datalist id="Color">';
+                        for(let i=0;i < value['input']['colors'].length; i++) {
+                            list += '<option value="' + value['input']['colors'][i] + '">';
+                        }
+                        list += '</datalist>';
+                    }
+                    newForm.innerHTML += '<br>' + (value['label']? '<label>' + value["label"] + '</label>': '') + list + '<input' + ' type=' + value["input"]["type"] +
+                        (value['input']['colors']? ' list ="Color" value="' + value['input']['colors'][0] + '"' : '') + '>';
+                }
                 else {
-                    newForm.innerHTML+='<br>' + value["label"] + '<input' + ' type=' + value["input"]["type"] + (value['input']['required'] ? ' required' : '') 
-                        + ' placeholder=' + (value['input']['placeholder']? '"' + value['input']['placeholder'] + '"' : '')+'>'
+                    newForm.innerHTML+='<br>' + (value['label']? '<label>' + value["label"] + '</label>': '') + '<input' + ' type=' + value["input"]["type"] + (value['input']['required'] ? ' required' : '') 
+                        + ' placeholder=' + (value['input']['placeholder']? '"' + value['input']['placeholder'] + '"' : '') + '>'
+                }    
+            }
+            
+            if (resultForm['references']) {
+                for (let value of resultForm['references']) {
+                    if(value['input']) {
+                    newForm.innerHTML+='<br><input type=' + value["input"]["type"] + (value['input']['checked'] ? ' checked' : '') +'>'
+                    }
                 }
             }
-            for (let value of resultForm['references']) {
-                if(value['input']) {
-                newForm.innerHTML+='<br><input type=' + value["input"]["type"] + (value['input']['checked'] ? ' checked' : '') +'>'
+            if (resultForm['references']) {
+                    for (let value of resultForm['buttons']) {
+                        newForm.innerHTML+='<br><button>' + value['text'] + '</button>'
+                    }
                 }
-            }
-            for (let value of resultForm['buttons']) {
-                newForm.innerHTML+='<br><button>' + value['text'] + '</button>'
-            }
-            }
+            }  
         }
-        //
   // удаление формы //
 
     function clearForm() {
