@@ -80,8 +80,24 @@ window.onload = function(){
                         (value['input']['colors']? ' list ="Color" value="' + value['input']['colors'][0] + '"' : '') + '>';
                 }
                 else {
-                    newForm.innerHTML+='<br>' + (value['label']? '<label>' + value["label"] + '</label>': '') + '<input' + ' type=' + value["input"]["type"] + (value['input']['required'] ? ' required' : '') 
-                        + ' placeholder=' + (value['input']['placeholder']? '"' + value['input']['placeholder'] + '"' : '') + '>'
+                    function makeid(length) {
+                        var result           = '';
+                        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                        var charactersLength = characters.length;
+                        for ( var i = 0; i < length; i++ ) {
+                           result += characters.charAt(Math.floor(Math.random() * charactersLength));
+                        }
+                        return result;
+                    }
+                    let class_name = makeid(10);
+
+                    newForm.innerHTML += '<br>' + (value['label']? '<label>' + value["label"] + '</label>': '') + '<input' + ' type=' + (value['input']['mask']? 'text': value["input"]["type"]) + (value['input']['required'] ? ' required' : '') 
+                        + (value['input']['placeholder']? ' placeholder="' + value['input']['placeholder'] + '"' : '') + (value['input']['mask']? ' class="' + class_name +'"' : '') + '>';
+                    if(value['input']['mask']) {
+                        jQuery(newForm).ready(function($){
+                            $('.newForm .' + class_name).mask(value['input']['mask']);
+                    });
+                    }
                 }    
             }
             
