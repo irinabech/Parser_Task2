@@ -46,9 +46,10 @@ window.onload = function(){
             
             //генерация форм
 
-            //input, button, checkbox
+            
             newForm.innerHTML+='<br>' + '<h1>' + resultForm['name'] + '</h1>';
-
+            //input, button, checkbox
+            //данные из fields
             for (let value of resultForm['fields']) {
                 if (value['input']['type'] == 'technology') {
                     let data = '';
@@ -100,7 +101,7 @@ window.onload = function(){
                     }
                 }    
             }
-            
+            //данные из references
             if (resultForm['references']) {
                 for (let value of resultForm['references']) {
                     if(value['input']) {
@@ -112,6 +113,7 @@ window.onload = function(){
                     }
                 }
             }
+            //данные из buttons
             if (resultForm['buttons']) {
                     for (let value of resultForm['buttons']) {
                         newForm.innerHTML+='<br><button>' + value['text'] + '</button>'
