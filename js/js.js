@@ -106,9 +106,13 @@ window.onload = function(){
                     if(value['input']) {
                     newForm.innerHTML+='<br><input type=' + value["input"]["type"] + (value['input']['checked'] ? ' checked' : '') +'>'
                     }
+                    else {
+                        newForm.innerHTML+= value['text without ref']? '<br><label>' + value['text without ref'] + '</label>': '';
+                        newForm.innerHTML += value['ref'] && value['text']? '<a href="'+ value['ref'] + '"> ' + value['text'] +' </a>': '';
+                    }
                 }
             }
-            if (resultForm['references']) {
+            if (resultForm['buttons']) {
                     for (let value of resultForm['buttons']) {
                         newForm.innerHTML+='<br><button>' + value['text'] + '</button>'
                     }
